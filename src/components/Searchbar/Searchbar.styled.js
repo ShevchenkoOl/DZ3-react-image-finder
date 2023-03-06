@@ -22,8 +22,9 @@ export const Conteiner = styled.div`
 export const Form = styled.form`
     display: flex;
     align-items: center;
-    width: 100%;
-    max-width: 600px;
+    //width: 100%;
+    width: 600px;
+    height: 48px;
     background-color: #fff;
     border-radius: 3px;
     overflow: hidden;
@@ -34,7 +35,7 @@ export const Form = styled.form`
     width: 48px;
     height: 48px;
     border: 0;
-    background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+    //background-image: url(https://image.flaticon.com/icons/svg/149/149852.svg);
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: center;
@@ -47,17 +48,17 @@ export const Form = styled.form`
   }
   `;
 
- export const Label = styled.label`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    clip-path: inset(50%);
-    border: 0;
-    `;
+//  export const Label = styled.label`
+//     position: absolute;
+//     /* width: 1px;
+//     height: 1px; */
+//     padding: 0;
+//     overflow: hidden;
+//     clip: rect(0, 0, 0, 0);
+//     white-space: nowrap;
+//     clip-path: inset(50%);
+//     border: 0;
+//     `;
   
   export const Input = styled.input`
     display: inline-block;
