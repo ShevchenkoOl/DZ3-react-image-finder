@@ -1,44 +1,64 @@
-import { FetchData } from "API/FetchData";
-import { ImmageGalleryItem } from "components/ImmageGalleryItem/ImmageGalleryItem.styled";
+import { FetchData, needValues } from "API/FetchData";
+import { ImageGalleryItem } from "../ImmageGalleryItem/ImmageGalleryItem";
 import { Component } from "react";
-//import { List } from "./ImageGallery.styled";
+import { toast } from 'react-hot-toast'
+import { List } from "./ImageGallery.styled";
 
 export class ImmageGallery extends Component(){
 
-    const ={
-            images: null,
+    state ={
+            images: [],
+            textSearch: '',
+            page: 1
           }
 
 componentDidUpdate(prevProps, prevState){
-    if (prevProps.value !== this.props.value){
-        FetchData(this.props.value)
-        .then((response) => response.JSON())
-        .then((images) => {
-            console.log('image:>>', images)
-        //this.setState({images})
-        })
+    if (prevState.textSearch !== this.state.textSearch){
+        this.renderGallery();
     }
-
 }
+
+renderGallery = async () => {
+    const { textSearch, page } = this.state;
+    //this.setState({ isLoading: true });
+
+    try {
+      const { hits, totalHits } = await FetchData(textSearch, page);
+
+      if (totalHits === 0) {
+        toast.warn(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      }
+      const newImages = needValues(hits);
+
+      this.setState(({ images }) => ({
+        images: [...images, ...newImages],
+        totalHits,
+      }));
+    } catch (error) {
+      this.setState({ error });
+      toast.error('Oops... Something went wrong');
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  };
+
     render(){
         return(
-            this.state.images &&
-            this.state.images.hits.map( (el)=>{
-             return <ImmageGalleryItem>{this.images.tags}</ImmageGalleryItem>
-            })
-//             <List>
-//                 {this.state.images.map(image => {
-//                     return(
-//                         <ImmageGalleryItem
-//             key={image.id}
-//             webformatURL={image.webformatURL}
-//             tags={image.tags}
-//             largeImageURL={image.largeImageURL}
-//             //showModal={showModal}
-//           />
-//                     )
-//                 })}
-// </List>
+           <List>
+                {this.state.images.map(image => {
+                    return(
+            <ImageGalleryItem
+            key={image.id}
+            webformatURL={image.webformatURL}
+            tags={image.tags}
+            largeImageURL={image.largeImageURL}
+            //showModal={showModal}
+          />
+                    )
+                })}
+           </List>
         )
     }
 }

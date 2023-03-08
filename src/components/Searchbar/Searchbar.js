@@ -1,5 +1,6 @@
-//import { AiFillAlert } from 'react-icons/ai';
+import { AiFillAlert } from 'react-icons/ai';
 import { Component } from 'react';
+//import { toast } from 'react-hot-toast'
 import { Form, Button, Input, Conteiner } from './Searchbar.styled';
 
 export class Searchbar extends Component {
@@ -23,7 +24,9 @@ export class Searchbar extends Component {
     return (
       <Conteiner>
         <Form onSubmit={this.handleSubmit}>         
-          <Button type='submit'/>
+          <Button type='submit'>
+          <AiFillAlert style={{ width: 25, height: 25 }} />
+          </Button>
           <Input
               type="search"
               name="name"
