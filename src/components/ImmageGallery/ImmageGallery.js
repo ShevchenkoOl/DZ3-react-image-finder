@@ -4,7 +4,7 @@ import { Component } from "react";
 import { toast } from 'react-hot-toast'
 import { List } from "./ImageGallery.styled";
 
-export class ImmageGallery extends Component(){
+export class ImmageGallery extends Component {
 
     state ={
             images: [],

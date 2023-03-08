@@ -1,4 +1,4 @@
-import { AiFillAlert } from 'react-icons/ai';
+import { VscSearch } from 'react-icons/vsc';
 import { Component } from 'react';
 //import { toast } from 'react-hot-toast'
 import { Form, Button, Input, Conteiner } from './Searchbar.styled';
@@ -25,7 +25,7 @@ export class Searchbar extends Component {
       <Conteiner>
         <Form onSubmit={this.handleSubmit}>         
           <Button type='submit'>
-          <AiFillAlert style={{ width: 25, height: 25 }} />
+          <VscSearch style={{ width: 25, height: 25 }} />
           </Button>
           <Input
               type="search"
