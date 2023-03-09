@@ -1,7 +1,7 @@
-import { FetchData, needValues } from "API/FetchData";
+import { FetchData } from "API/FetchData";
 import { ImageGalleryItem } from "../ImmageGalleryItem/ImmageGalleryItem";
 import { Component } from "react";
-import { toast } from 'react-hot-toast'
+//import { toast } from 'react-hot-toast'
 import { List } from "./ImageGallery.styled";
 
 export class ImmageGallery extends Component {
@@ -13,36 +13,49 @@ export class ImmageGallery extends Component {
           }
 
 componentDidUpdate(prevProps, prevState){
-    if (prevState.textSearch !== this.state.textSearch){
-        this.renderGallery();
-    }
+  if(prevProps.value !== this.props.value){
+    FetchData(this.props.value)
+    .then((response) => response.json())
+    .then((images) => (
+      //console.log('image:>>', images)
+      this.setState({images})
+    ))
+
+  }
 }
 
-renderGallery = async () => {
-    const { textSearch, page } = this.state;
-    //this.setState({ isLoading: true });
 
-    try {
-      const { hits, totalHits } = await FetchData(textSearch, page);
+// componentDidUpdate(prevProps, prevState){
+//     if (prevState.textSearch !== this.state.textSearch){
+//         this.renderGallery();
+//     }
+// }
 
-      if (totalHits === 0) {
-        toast.warn(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      }
-      const newImages = needValues(hits);
+// // renderGallery = async () => {
+//     const { textSearch, page } = this.state;
+//     //this.setState({ isLoading: true });
 
-      this.setState(({ images }) => ({
-        images: [...images, ...newImages],
-        totalHits,
-      }));
-    } catch (error) {
-      this.setState({ error });
-      toast.error('Oops... Something went wrong');
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
+//     try {
+//       const { hits, totalHits } = await FetchData(textSearch, page);
+
+//       if (totalHits === 0) {
+//         toast.warn(
+//           'Sorry, there are no images matching your search query. Please try again.'
+//         );
+//       }
+//       const newImages = needValues(hits);
+
+//       this.setState(({ images }) => ({
+//         images: [...images, ...newImages],
+//         totalHits,
+//       }));
+//     } catch (error) {
+//       this.setState({ error });
+//       toast.error('Oops... Something went wrong');
+//     } finally {
+//       this.setState({ isLoading: false });
+//     }
+//   };
 
     render(){
         return(
